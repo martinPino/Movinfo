@@ -4,14 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".fragments.HomeFragment">
 
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
 
-</androidx.core.widget.NestedScrollView>
     <LinearLayout
         android:id="@+id/linear_header"
         android:layout_width="match_parent"
@@ -63,124 +58,171 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/random_movie"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_25sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toBottomOf="@id/linear_header">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@+id/linear_header">
 
-        <ImageView
-            android:id="@+id/img_random_movie"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_header">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/accent"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="Movie Name">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/random_movie"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_header"
+>
+
+                    <ImageView
+                        android:id="@+id/img_random_movie"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:foregroundGravity="bottom"
+                        android:scaleType="centerCrop"
+                        android:textSize="@dimen/_20sdp"
+                        app:layout_collapseMode="parallax" />
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        app:layout_collapseMode="pin" />
+
+                </androidx.cardview.widget.CardView>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/accent"
-            android:scaleType="centerCrop" />
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
 
-    </androidx.cardview.widget.CardView>
+            >
 
-    <LinearLayout
-        android:id="@+id/linear_top_picks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/linear_header"
-        app:layout_constraintTop_toBottomOf="@id/random_movie">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_top_picks_for_you"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="2"
-            android:text="TOP PICKS FOR YOU"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/linear_header" />
+                <LinearLayout
+                    android:id="@+id/linear_top_picks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/_7sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+                    <TextView
+                        android:id="@+id/tv_top_picks_for_you"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Top picks for you"
+                        android:textColor="#fff"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@id/linear_header" />
 
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/_7sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_view_top_picks"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_top_picks" />
-
-    <TextView
-        android:id="@+id/tv_genres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="EXPLORE BY GENRES"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/linear_header"
-        app:layout_constraintTop_toBottomOf="@id/rec_view_top_picks" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_genres"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_genres" />
-
-    <LinearLayout
-        android:id="@+id/linear_added"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/tv_genres"
-        app:layout_constraintTop_toBottomOf="@id/rec_genres">
-
-        <TextView
-            android:id="@+id/tv_recently"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="2"
-            android:text="RECENTLY ADDED"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/_7sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_recently_added"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_added" />
+                </LinearLayout>
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_view_top_picks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_top_picks" />
+
+                <TextView
+                    android:id="@+id/tv_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Explore by genres"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/linear_top_picks"
+                    app:layout_constraintTop_toBottomOf="@id/rec_view_top_picks" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_genres" />
+
+
+                <LinearLayout
+                    android:id="@+id/linear_added"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/tv_genres"
+                    app:layout_constraintTop_toBottomOf="@id/rec_genres">
+
+                    <TextView
+                        android:id="@+id/tv_recently"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Recently added"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/_7sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_recently_added"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear_added" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
