@@ -2,33 +2,26 @@ package com.example.movinfo.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movinfo.activities.MovieActivity
+import com.example.movinfo.adapters.TopPicksAdapter
 import com.example.movinfo.databinding.FragmentHomeBinding
-import com.example.movinfo.pojo.MovieList
 import com.example.movinfo.pojo.Movie
-import com.example.movinfo.retrofit.RetrofitInstance
 import com.example.movinfo.util.Constants.Companion.IMAGE_BASE
 import com.example.movinfo.viewModel.HomeViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
-import kotlin.random.Random
-import kotlin.random.Random.Default.nextInt
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
     private lateinit var randomMovie: Movie
+    private lateinit var  topPicksAdapter: TopPicksAdapter
 
     companion object{
         const val MOVIE_ID = "com/example/movinfo/fragments/idMovie"
@@ -44,6 +37,8 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
 
+        topPicksAdapter = TopPicksAdapter()
+
     }
 
     override fun onCreateView(
@@ -57,11 +52,31 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prepareTopPicksRecyclerview()
 
         homeMvvm.getRandomMovie()
         observerRandomMovie()
         onRandomMovieClick()
 
+        homeMvvm.getTopPicksMovies()
+        observeTopPicksLivdata()
+
+    }
+
+    private fun prepareTopPicksRecyclerview() {
+        binding.recViewTopPicks.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = topPicksAdapter
+        }
+    }
+
+    private fun observeTopPicksLivdata() {
+        homeMvvm.observeTopPicksMovies().observe(viewLifecycleOwner
+        ) { movieList ->
+
+            topPicksAdapter.setMovies(movieList = movieList as ArrayList<Movie>)
+
+        }
     }
 
     private fun onRandomMovieClick() {

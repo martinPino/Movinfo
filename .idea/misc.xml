@@ -9,6 +9,7 @@
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1835" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1835" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_baseline_local_movies_24.xml" value="0.1705" />
+        <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_baseline_movie_24.xml" value="0.1645" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1705" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/drawable/ic_home.xml" value="0.1705" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/font/font.xml" value="0.20416666666666666" />
@@ -16,7 +17,8 @@
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/activity_movie.xml" value="0.17" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/fragment_categories.xml" value="0.175" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/fragment_favourites.xml" value="0.175" />
-        <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/layout/top_picks_item.xml" value="0.17395833333333333" />
         <entry key="..\:/AndroidProjects/MovInfo/app/src/main/res/menu/btm_menu.xml" value="0.175" />
       </map>
     </option>

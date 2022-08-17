@@ -47,7 +47,7 @@
         app:backgroundTint="@color/accent"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|end"
-        app:tint="@color/white" />
+        app:tint="#ffff" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

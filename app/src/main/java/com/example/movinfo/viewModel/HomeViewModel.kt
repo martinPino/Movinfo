@@ -13,6 +13,7 @@ import retrofit2.Response
 
 class HomeViewModel():ViewModel() {
     private var randomMovieLiveData = MutableLiveData<Movie>()
+    private var topPicksLiveData = MutableLiveData<List<Movie>>()
     fun getRandomMovie(){
 
         RetrofitInstance.api.getMovieDetails().enqueue(object : Callback<MovieList> {
@@ -32,8 +33,27 @@ class HomeViewModel():ViewModel() {
         })
     }
 
+    fun getTopPicksMovies(){
+        RetrofitInstance.api.getTopPicksMovies().enqueue(object : Callback<MovieList>{
+            override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
+                if(response.body() != null){
+                    topPicksLiveData.value = response.body()!!.movies
+                }
+            }
+
+            override fun onFailure(call: Call<MovieList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+
+        })
+    }
+
     fun observeRandomMovieLivedata():LiveData<Movie>{
         return  randomMovieLiveData
 
+    }
+
+    fun observeTopPicksMovies():LiveData<List<Movie>>{
+        return topPicksLiveData
     }
 }
