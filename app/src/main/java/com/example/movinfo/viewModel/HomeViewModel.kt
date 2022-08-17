@@ -13,11 +13,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel():ViewModel() {
+class HomeViewModel() : ViewModel() {
     private var randomMovieLiveData = MutableLiveData<Movie>()
     private var topPicksLiveData = MutableLiveData<List<Movie>>()
+    private var recentlyAddedLiveData = MutableLiveData<List<Movie>>()
+
     private var genresLiveData = MutableLiveData<List<Genre>>()
-    fun getRandomMovie(){
+    fun getRandomMovie() {
 
         RetrofitInstance.api.getMovieDetails().enqueue(object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
@@ -36,10 +38,10 @@ class HomeViewModel():ViewModel() {
         })
     }
 
-    fun getTopPicksMovies(){
-        RetrofitInstance.api.getTopPicksMovies().enqueue(object : Callback<MovieList>{
+    fun getTopPicksMovies() {
+        RetrofitInstance.api.getTopPicksMovies().enqueue(object : Callback<MovieList> {
             override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
-                if(response.body() != null){
+                if (response.body() != null) {
                     topPicksLiveData.value = response.body()!!.movies
                 }
             }
@@ -51,8 +53,23 @@ class HomeViewModel():ViewModel() {
         })
     }
 
-    fun getGenre(){
-        RetrofitInstance.api.getGenre().enqueue(object  : Callback<GenreList>{
+    fun getRecentlyAdded(){
+        RetrofitInstance.api.getRecentlyAdded().enqueue(object  : Callback<MovieList>{
+            override fun onResponse(call: Call<MovieList>, response: Response<MovieList>) {
+                if (response.body() != null) {
+                    recentlyAddedLiveData.value = response.body()!!.movies
+                }
+            }
+
+            override fun onFailure(call: Call<MovieList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+
+        })
+    }
+
+    fun getGenre() {
+        RetrofitInstance.api.getGenre().enqueue(object : Callback<GenreList> {
             override fun onResponse(call: Call<GenreList>, response: Response<GenreList>) {
                 response.body()?.let { genreList ->
                     genresLiveData.postValue(genreList.genres)
@@ -65,16 +82,20 @@ class HomeViewModel():ViewModel() {
         })
     }
 
-    fun observeRandomMovieLivedata():LiveData<Movie>{
-        return  randomMovieLiveData
+    fun observeRandomMovieLivedata(): LiveData<Movie> {
+        return randomMovieLiveData
 
     }
 
-    fun observeTopPicksMovies():LiveData<List<Movie>>{
+    fun observeRecentlyAddedLivedata(): LiveData<List<Movie>> {
+        return recentlyAddedLiveData
+    }
+
+    fun observeTopPicksMovies(): LiveData<List<Movie>> {
         return topPicksLiveData
     }
 
-    fun observeGenreLiveData():LiveData<List<Genre>>{
+    fun observeGenreLiveData(): LiveData<List<Genre>> {
         return genresLiveData
     }
 }

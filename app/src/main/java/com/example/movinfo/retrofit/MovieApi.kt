@@ -14,6 +14,9 @@ interface MovieApi {
     @GET("/3/movie/top_rated?api_key=0c208068ebcce9842564c387f16cfdbd")
     fun getTopPicksMovies(): Call<MovieList>
 
+    @GET("/3/movie/upcoming?api_key=0c208068ebcce9842564c387f16cfdbd")
+    fun getRecentlyAdded(): Call<MovieList>
+
     @GET("/3/genre/movie/list?api_key=0c208068ebcce9842564c387f16cfdbd")
     fun getGenre() : Call<GenreList>
 

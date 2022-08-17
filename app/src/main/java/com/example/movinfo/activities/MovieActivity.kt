@@ -34,7 +34,7 @@ class MovieActivity : AppCompatActivity() {
         Glide.with(applicationContext)
             .load(Constants.IMAGE_BASE + moviePoster)
             .into(binding.imgMovieDetail)
-
+        binding.tvTitleMovie.text = movieName
         binding.collapsingToolbar.title = movieName
         binding.tvArea.text = movieDate
         binding.tvInstructions.text = movieOverview

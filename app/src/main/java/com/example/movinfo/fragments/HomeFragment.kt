@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movinfo.activities.MovieActivity
 import com.example.movinfo.adapters.GenresAdapter
+import com.example.movinfo.adapters.RecentlyAddedAdapter
 import com.example.movinfo.adapters.TopPicksAdapter
 import com.example.movinfo.databinding.FragmentHomeBinding
 import com.example.movinfo.pojo.Movie
@@ -28,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var randomMovie: Movie
     private lateinit var  topPicksAdapter: TopPicksAdapter
     private lateinit var genreAdapter: GenresAdapter
+    private lateinit var recentlyAdapter : RecentlyAddedAdapter
 
     companion object{
         const val MOVIE_ID = "com/example/movinfo/fragments/idMovie"
@@ -43,7 +45,9 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
 
+        recentlyAdapter = RecentlyAddedAdapter()
         topPicksAdapter = TopPicksAdapter()
+
 
     }
 
@@ -58,12 +62,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prepareTopPicksRecyclerview()
+
+
 
         homeMvvm.getRandomMovie()
         observerRandomMovie()
         onRandomMovieClick()
 
+        prepareTopPicksRecyclerview()
         homeMvvm.getTopPicksMovies()
         observeTopPicksLivdata()
 
@@ -71,7 +77,21 @@ class HomeFragment : Fragment() {
         homeMvvm.getGenre()
         observeGenreLivedata()
 
+        prepareRecentlyAddedRecyclerview()
+        homeMvvm.getRecentlyAdded()
+        observeRecentlyAddedLivedata()
 
+
+    }
+
+
+
+    private fun prepareRecentlyAddedRecyclerview() {
+        recentlyAdapter = RecentlyAddedAdapter()
+        binding.recRecentlyAdded.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = recentlyAdapter
+        }
     }
 
     private fun prepareGenreRecyclerView() {
@@ -89,12 +109,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun prepareTopPicksRecyclerview() {
+        topPicksAdapter = TopPicksAdapter()
         binding.recViewTopPicks.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = topPicksAdapter
         }
     }
+    private fun observeRecentlyAddedLivedata() {
+        homeMvvm.observeRecentlyAddedLivedata().observe(viewLifecycleOwner) { recentlyAdded ->
 
+            recentlyAdapter.setRecentlyAddedMovies(recentlyList = recentlyAdded as ArrayList<Movie>)
+        }
+    }
     private fun observeTopPicksLivdata() {
         homeMvvm.observeTopPicksMovies().observe(viewLifecycleOwner
         ) { movieList ->

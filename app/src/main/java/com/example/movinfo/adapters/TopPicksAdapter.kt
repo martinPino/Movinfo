@@ -17,7 +17,7 @@ class TopPicksAdapter(): RecyclerView.Adapter<TopPicksAdapter.TopPicksViewHolder
         notifyDataSetChanged()
     }
 
-    class TopPicksViewHolder( var binding:TopPicksItemBinding):RecyclerView.ViewHolder(binding.root)
+    class TopPicksViewHolder( val binding:TopPicksItemBinding):RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopPicksViewHolder {
         return  TopPicksViewHolder(TopPicksItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))

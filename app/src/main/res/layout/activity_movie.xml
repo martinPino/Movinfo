@@ -99,24 +99,28 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/inst_tv"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_title_movie"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="2dp"
+                app:layout_goneMarginStart="2dp"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear_lay"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"
-                android:fontFamily="@font/myfont"
                 android:textColor="#FFFFFF"/>
 
             <TextView
                 android:id="@+id/tv_instructions"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="2dp"
+                app:layout_goneMarginStart="2dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                app:layout_constraintStart_toStartOf="@id/inst_tv"
-                app:layout_constraintTop_toBottomOf="@id/linear_lay"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_movie"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textColor="#FFFFFF"/>
 
