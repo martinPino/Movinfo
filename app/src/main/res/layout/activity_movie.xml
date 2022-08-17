@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_230sdp"
+        android:layout_height="400dp"
         android:backgroundTint="@color/g_black">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -17,9 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/accent"
+            app:expandedTitleMargin="10dp"
+            app:expandedTitleMarginBottom="32dp"
+            app:expandedTitleMarginStart="32dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Movie Name"
-            >
+            app:titleCollapseMode="scale">
 
             <ImageView
                 android:id="@+id/img_movie_detail"
@@ -63,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                    android:drawableLeft="@drawable/ic_baseline_date_range_24"
                     android:drawableTint="@color/g_black"
                     android:text="Area: Argentina"
                     android:textColor="@color/g_black"
@@ -99,10 +102,8 @@
                 android:id="@+id/inst_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- RESUME: "
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear_lay"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textStyle="bold"
                 android:textSize="@dimen/_15ssp"
@@ -113,9 +114,9 @@
                 android:id="@+id/tv_instructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="@id/inst_tv"
-                app:layout_constraintTop_toBottomOf="@id/inst_tv"
-                android:layout_marginTop="@dimen/_2sdp"
+                app:layout_constraintTop_toBottomOf="@id/linear_lay"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textColor="#FFFFFF"/>
 

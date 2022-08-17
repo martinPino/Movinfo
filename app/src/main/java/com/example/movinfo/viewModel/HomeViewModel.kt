@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movinfo.pojo.Genre
+import com.example.movinfo.pojo.GenreList
 import com.example.movinfo.pojo.Movie
 import com.example.movinfo.pojo.MovieList
 import com.example.movinfo.retrofit.RetrofitInstance
@@ -14,6 +16,7 @@ import retrofit2.Response
 class HomeViewModel():ViewModel() {
     private var randomMovieLiveData = MutableLiveData<Movie>()
     private var topPicksLiveData = MutableLiveData<List<Movie>>()
+    private var genresLiveData = MutableLiveData<List<Genre>>()
     fun getRandomMovie(){
 
         RetrofitInstance.api.getMovieDetails().enqueue(object : Callback<MovieList> {
@@ -48,6 +51,20 @@ class HomeViewModel():ViewModel() {
         })
     }
 
+    fun getGenre(){
+        RetrofitInstance.api.getGenre().enqueue(object  : Callback<GenreList>{
+            override fun onResponse(call: Call<GenreList>, response: Response<GenreList>) {
+                response.body()?.let { genreList ->
+                    genresLiveData.postValue(genreList.genres)
+                }
+            }
+
+            override fun onFailure(call: Call<GenreList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+        })
+    }
+
     fun observeRandomMovieLivedata():LiveData<Movie>{
         return  randomMovieLiveData
 
@@ -55,5 +72,9 @@ class HomeViewModel():ViewModel() {
 
     fun observeTopPicksMovies():LiveData<List<Movie>>{
         return topPicksLiveData
+    }
+
+    fun observeGenreLiveData():LiveData<List<Genre>>{
+        return genresLiveData
     }
 }

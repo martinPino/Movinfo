@@ -6,10 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.GeneratedAdapter
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.movinfo.activities.MovieActivity
+import com.example.movinfo.adapters.GenresAdapter
 import com.example.movinfo.adapters.TopPicksAdapter
 import com.example.movinfo.databinding.FragmentHomeBinding
 import com.example.movinfo.pojo.Movie
@@ -22,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeMvvm: HomeViewModel
     private lateinit var randomMovie: Movie
     private lateinit var  topPicksAdapter: TopPicksAdapter
+    private lateinit var genreAdapter: GenresAdapter
 
     companion object{
         const val MOVIE_ID = "com/example/movinfo/fragments/idMovie"
@@ -61,6 +67,25 @@ class HomeFragment : Fragment() {
         homeMvvm.getTopPicksMovies()
         observeTopPicksLivdata()
 
+        prepareGenreRecyclerView()
+        homeMvvm.getGenre()
+        observeGenreLivedata()
+
+
+    }
+
+    private fun prepareGenreRecyclerView() {
+        genreAdapter = GenresAdapter()
+        binding.recGenres.apply {
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = genreAdapter
+        }
+    }
+
+    private fun observeGenreLivedata() {
+        homeMvvm.observeGenreLiveData().observe(viewLifecycleOwner, Observer { genres->
+                genreAdapter.setGenreList(genres)
+        })
     }
 
     private fun prepareTopPicksRecyclerview() {
